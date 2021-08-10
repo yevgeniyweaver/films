@@ -2,9 +2,18 @@ import React, { useState, useEffect, useReducer } from "react";
 import '../App.css';
 import Header from "./Header";
 import Movie from "./Movie";
+import MovieList from "./MovieList";
 import Search from "./Search";
 import { reducer } from "./../reducers/movieLoad";
 import { API_KEY } from "../constants";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
 
 const MOVIE_API_URL = "https://www.omdbapi.com/?s=man&apikey=4a3b711b"; // you should replace this with
 
@@ -89,26 +98,57 @@ const App = () => {
       });
   };
   console.log(state)
-
   //apiUrl('oven');
-
   return (
 
     <div className="App">
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+              <li>
+                <Link to="/users">Users</Link>
+              </li>
+            </ul>
+          </nav>
+
+          {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+          <Switch>
+            <Route path="/about">
+              <MovieList />
+            </Route>
+            <Route path="/">
+              <MovieCard />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+
+
       <Header text="FilmoRating" setState={setMain} />
       <Search search={search} />
-      <p className="App-intro">Sharing a few of our favourite movies</p>
-      <div className="movies">
-        {loading && !errorMessage ? (
-          <span>loading...</span>
-        ) : errorMessage ? (
-          <div className="errorMessage">{errorMessage}</div>
-        ) : (
-          movies.map((movie, index) => (
-            <Movie key={`${index}-${movie.Title}`} movie={movie} />
-          ))
-        )}
-      </div>
+      <main>
+        <p className="App-intro">Sharing a few of our favourite movies</p>
+        <div className="movies">
+          {loading && !errorMessage ? (
+            <span>loading...</span>
+          ) : errorMessage ? (
+            <div className="errorMessage">{errorMessage}</div>
+          ) : (
+            movies.map((movie, index) => (
+              <Movie key={`${index}-${movie.Title}`} movie={movie} />
+            ))
+          )}
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 

@@ -1,19 +1,15 @@
-import React, { useState }from "react";
+import React from "react";
 import {DEFAULT_PLACEHOLDER_IMAGE} from "../constants";
+import {Link} from "react-router-dom";
 
 
 const Movie = ({ movie }) => {
-  const poster =
-    movie.Poster === "N/A" ? DEFAULT_PLACEHOLDER_IMAGE : movie.Poster;
-
-  const showFilmPlot = id => {
-
-  }
+  const poster = movie.Poster === "N/A" ? DEFAULT_PLACEHOLDER_IMAGE : movie.Poster;
 
   return (
-    <div className="movie">
+    <Link className="movie" to={`/title/${movie.id}`}>
       <h2>{movie.Title}</h2>
-      <div onClick={()=>showFilmPlot(movie.id)}>
+      <div>
         <img
           width="200"
           alt={`The movie titled: ${movie.Title}`}
@@ -21,7 +17,7 @@ const Movie = ({ movie }) => {
         />
       </div>
       <p>({movie.Year})</p>
-    </div>
+    </Link>
   );
 };
 

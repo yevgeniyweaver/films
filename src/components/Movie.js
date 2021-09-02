@@ -1,4 +1,4 @@
-import React, { useState }from "react";
+import React from "react"; // { useState }
 import {DEFAULT_PLACEHOLDER_IMAGE} from "../constants";
 
 

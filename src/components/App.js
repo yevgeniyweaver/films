@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useReducer } from "react";
 import '../App.css';
-import Header from "./Header";
+import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
 import Movie from "./Movie";
-import MovieList from "./MovieList";
-import Search from "./Search";
+import MovieList from "./MovieList/MovieList";
+import Search from "./Search/Search";
 import { reducer } from "./../reducers/movieLoad";
 import { API_KEY } from "../constants";
 import {
@@ -11,8 +12,8 @@ import {
   Switch,
   Route,
   Link,
-  useRouteMatch,
-  useParams
+  // useRouteMatch,
+  // useParams
 } from "react-router-dom";
 
 const MOVIE_API_URL = "https://www.omdbapi.com/?s=man&apikey=4a3b711b"; // you should replace this with
@@ -49,9 +50,10 @@ const App = () => {
       });
   }, []);
   const setMain = (value) => {
-    setMainState(value)
+    setMainState(value);
+    console.log(mainState)
   }
-
+// eslint-disable-next-line
   const apiUrl = (searchValue) => {
     fetch(`https://www.omdbapi.com/?s=${searchValue}&apikey=${API_KEY}`)
       .then(response => response.json())
@@ -98,6 +100,41 @@ const App = () => {
       });
   };
   console.log(state)
+  let machine = {
+    sfera: 1
+  }
+  let auto = {
+    speed: 180,
+    mark: 'Toyota',
+    __proto__: machine,
+  }
+  let reno = {
+    mark: 'Renault',
+  }
+  let user = {
+    name: "John",
+    surname: "Smith",
+    set fullName(value) {
+      [this.name, this.surname] = value.split(" ");
+      console.log(value.split(" "))
+    },
+    get fullName() {
+      return `${this.name} ${this.surname}`;
+    }
+  };
+  user.fullName = 'Vasia Pupkin';
+  console.log(user.name)
+  console.log(user.surname)
+
+
+
+
+
+  reno.__proto__ = auto;
+  console.log(reno.mark)
+  console.log(reno.speed)
+  console.log(reno.sfera)
+
   //apiUrl('oven');
   return (
 
@@ -125,7 +162,7 @@ const App = () => {
               <MovieList />
             </Route>
             <Route path="/">
-              <MovieCard />
+              {/*<MovieCard />*/}
             </Route>
           </Switch>
         </div>
@@ -148,10 +185,9 @@ const App = () => {
           )}
         </div>
       </main>
-      <Footer />
+      <Footer text="Filmorating@org"/>
     </div>
   );
-
 }
 
 export default App;

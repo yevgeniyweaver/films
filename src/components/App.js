@@ -59,7 +59,7 @@ const App = () => {
       .then(response => response.json())
       .then(jsonResponse => {
         if (jsonResponse.Response === "True") {
-          console.log(jsonResponse.Search)
+          // console.log(jsonResponse.Search)
           // setMovies(jsonResponse.Search);
           // setLoading(false);
         } else {
@@ -80,8 +80,8 @@ const App = () => {
       .then(response => response.json())
       .then(jsonResponse => {
         if (jsonResponse.Response === "True") {
-          console.log(`search with: "${searchValue}"`)
-          console.log(jsonResponse.Search)
+          // console.log(`search with: "${searchValue}"`)
+          // console.log(jsonResponse.Search)
 
           dispatch({
             type: "SEARCH_MOVIES_SUCCESS",
@@ -99,42 +99,7 @@ const App = () => {
         }
       });
   };
-  console.log(state)
-  let machine = {
-    sfera: 1
-  }
-  let auto = {
-    speed: 180,
-    mark: 'Toyota',
-    __proto__: machine,
-  }
-  let reno = {
-    mark: 'Renault',
-  }
-  let user = {
-    name: "John",
-    surname: "Smith",
-    set fullName(value) {
-      [this.name, this.surname] = value.split(" ");
-      console.log(value.split(" "))
-    },
-    get fullName() {
-      return `${this.name} ${this.surname}`;
-    }
-  };
-  user.fullName = 'Vasia Pupkin';
-  console.log(user.name)
-  console.log(user.surname)
-
-
-
-
-
-  reno.__proto__ = auto;
-  console.log(reno.mark)
-  console.log(reno.speed)
-  console.log(reno.sfera)
-
+  // console.log(state)
   //apiUrl('oven');
   return (
 
@@ -173,6 +138,7 @@ const App = () => {
       <Search search={search} />
       <main>
         <p className="App-intro">Sharing a few of our favourite movies</p>
+        <MovieList movies={movies} loading={loading} errorMessage={errorMessage} />
         <div className="movies">
           {loading && !errorMessage ? (
             <span>loading...</span>
